@@ -1,4 +1,42 @@
-a {
-    color: black;
-    text-decoration: none;
+.add-folder-button {
+  margin: 20px auto;
+}
+.add-folder-button:hover {
+  background-color: #29862e;
+  color: white;
+}
+
+.add-folder-button {
+    background-color: #cacaca;
+  border-radius: 30px;
+  border: 0;
+  color: black;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  height: 60px;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  width: 60px;
+}
+
+.folder-link {
+  background-color: #030f1f;
+  color: #b5b3b3;
+  display: block;
+  font-family: var(--custom-font);
+  font-size: 20px;
+  margin: 0 0 8px auto;
+  max-width: 180px;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.folder-link:hover {
+  color: #FFB72F;
+  cursor: pointer;
+}
+.folder-link.active {
+  background-color: #102541;
 }

@@ -12,21 +12,28 @@ class App extends Component {
   state={
     ...STORE
   }
+
+  componentDidMount() {
+    setTimeout(() => this.setState(STORE), 600);
+  }
+
   render() {
     return (
-      <>
+      <div className='App'>
         <Header />
-        <aside>
+        <aside className='side-nav'>
           <Switch>
             <Route
               path='/notes/:noteId'
-              render={routerProps => <SidebarNote />}
+              render={routerProps => <SidebarNote 
+              folders={this.state.folders} 
+              note={this.state.notes.find(note => note.id === routerProps.match.params.noteId)} />}
             />
             <Route path="/" render={() => <SidebarMain 
               folders={this.state.folders} />} />
           </Switch>
         </aside>
-        <main>
+        <main className='App-main'>
           <Switch>
             <Route path="/notes/:noteId" render={routerProps => (
             <Note note={this.state.notes.find(note => note.id == routerProps.match.params.noteId)} />
@@ -37,7 +44,7 @@ class App extends Component {
             <Route path="/" render={() => <NoteList notes={this.state.notes} />} />
           </Switch>
         </main>
-      </>
+      </div>
     );
   }
 }
