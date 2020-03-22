@@ -1,11 +1,19 @@
-import React from "react";
+import React, { Component } from 'react';
+import NotefulContext from '../NotefulContext';
 
-export default function Note(props) {
-  return (
-    <>
-      <h2>{props.note.name}</h2>
-      <p>{props.note.content}</p>
-      <span>{props.note.modified}</span>
-    </>
-  );
+export default class Note extends Component {
+  static contextType = NotefulContext;
+  render() {
+    return (
+      <>
+        <h2>{this.props.note.name}</h2>
+        <p>{this.props.note.content}</p>
+        <span>{this.props.note.modified}</span>
+        <button
+          onClick={e => this.context.deleteNote(this.props.note.id)}>
+          Delete
+        </button>
+      </>
+    );
+  }
 }
