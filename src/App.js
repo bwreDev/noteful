@@ -22,7 +22,7 @@ class App extends Component {
       fetch('http://localhost:9090/folders'),
       fetch('http://localhost:9090/notes')
     ];
-    Promise.all(fetches)
+    return Promise.all(fetches)
       .then(res => {
         const responses = [res[0].json(), res[1].json()];
         return Promise.all(responses);
@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   addFolder = folder => {
-    fetch(`http://localhost:9090/folders/`, {
+    return fetch(`http://localhost:9090/folders/`, {
       method: 'post',
       headers: {
         'content-type': 'application/json'
@@ -52,7 +52,7 @@ class App extends Component {
   };
 
   addNote = note => {
-    fetch(`http://localhost:9090/notes/`, {
+    return fetch(`http://localhost:9090/notes/`, {
       method: 'post',
       headers: {
         'content-type': 'application/json'
@@ -68,13 +68,18 @@ class App extends Component {
   };
 
   deleteNote = id => {
-    fetch(`http://localhost:9090/notes/${id}`, {
+    return fetch(`http://localhost:9090/notes/${id}`, {
       method: 'delete'
-    }).then(res => {
-      this.setState({
-        notes: this.state.notes.filter(note => note.id !== id)
+    })
+      .then(res => {
+        this.setState({
+          notes: this.state.notes.filter(note => note.id !== id)
+        });
+      })
+      .catch(e => {
+        console.log(e);
+        throw e;
       });
-    });
   };
 
   render() {
@@ -87,33 +92,33 @@ class App extends Component {
     };
 
     return (
-      <NotefulContext.Provider value={contextValue}>
-        <div className='App'>
-          <Header />
-          <aside className='side-nav'>
-            <Switch>
-              <Route
-                path='/notes/:noteId'
-                render={routerProps => (
-                  <SidebarNote
-                    folders={this.state.folders}
-                    note={this.state.notes.find(
-                      note =>
-                        note.id === routerProps.match.params.noteId
-                    )}
-                  />
-                )}
-              />
-              <Route
-                path='/'
-                render={() => (
-                  <SidebarMain folders={this.state.folders} />
-                )}
-              />
-            </Switch>
-          </aside>
-          <main className='App-main'>
-            <ErrorBoundary>
+      <ErrorBoundary>
+        <NotefulContext.Provider value={contextValue}>
+          <div className='App'>
+            <Header />
+            <aside className='side-nav'>
+              <Switch>
+                <Route
+                  path='/notes/:noteId'
+                  render={routerProps => (
+                    <SidebarNote
+                      folders={this.state.folders}
+                      note={this.state.notes.find(
+                        note =>
+                          note.id === routerProps.match.params.noteId
+                      )}
+                    />
+                  )}
+                />
+                <Route
+                  path='/'
+                  render={() => (
+                    <SidebarMain folders={this.state.folders} />
+                  )}
+                />
+              </Switch>
+            </aside>
+            <main className='App-main'>
               <Switch>
                 <Route path='/add-folder' component={AddFolder} />
                 <Route path='/add-note' component={AddNote} />
@@ -145,10 +150,10 @@ class App extends Component {
                   render={() => <NoteList notes={this.state.notes} />}
                 />
               </Switch>
-            </ErrorBoundary>
-          </main>
-        </div>
-      </NotefulContext.Provider>
+            </main>
+          </div>
+        </NotefulContext.Provider>
+      </ErrorBoundary>
     );
   }
 }

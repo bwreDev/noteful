@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import NotefulContext from '../NotefulContext';
+import PropTypes from 'prop-types';
 import './noteListMain.css';
 
 export default class NoteList extends Component {
@@ -28,3 +29,7 @@ export default class NoteList extends Component {
     );
   }
 }
+
+NoteList.propTypes = {
+  notes: PropTypes.array
+};

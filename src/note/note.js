@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NotefulContext from '../NotefulContext';
+import PropTypes from 'prop-types';
 
 export default class Note extends Component {
   static contextType = NotefulContext;
@@ -17,3 +18,7 @@ export default class Note extends Component {
     );
   }
 }
+
+Note.propTypes = {
+  note: PropTypes.shape
+};

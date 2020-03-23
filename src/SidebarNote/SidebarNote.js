@@ -16,9 +16,8 @@ export default function SidebarNote(props) {
       </Link>
     </nav>
   );
-  SidebarNote.propTypes = {
-    id: PropTypes.string,
-    key: PropTypes.string,
-    name: PropTypes.string
-  };
 }
+
+SidebarNote.propTypes = {
+  folders: PropTypes.array
+};

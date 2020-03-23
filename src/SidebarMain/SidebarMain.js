@@ -20,9 +20,8 @@ export default function SidebarMain(props) {
       </NavLink>
     </nav>
   );
-  SidebarMain.propTypes = {
-    id: PropTypes.string,
-    name: PropTypes.string,
-    key: PropTypes.string
-  };
 }
+
+SidebarMain.propTypes = {
+  folders: PropTypes.array
+};
