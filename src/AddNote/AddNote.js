@@ -18,12 +18,13 @@ export default class AddNote extends Component {
       modified
     };
     this.context.addNote(note);
+    event.target.reset();
   };
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <input type='text' name='noteName' />
-        <textarea name='content'></textarea>
+        <input type='text' name='noteName' required />
+        <textarea name='content' required></textarea>
         <select name='folderId'>
           {this.context.folders.map(folder => (
             <option value={folder.id}>{folder.name}</option>
