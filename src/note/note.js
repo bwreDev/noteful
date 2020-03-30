@@ -11,7 +11,11 @@ export default class Note extends Component {
         <p>{this.props.note.content}</p>
         <span>{this.props.note.modified}</span>
         <button
-          onClick={e => this.context.deleteNote(this.props.note.id)}>
+          onClick={e =>
+            this.context.deleteNote(this.props.note.id, data =>
+              this.props.history.push('/')
+            )
+          }>
           Delete
         </button>
       </>

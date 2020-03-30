@@ -11,19 +11,24 @@ export default class AddFolder extends Component {
       name,
       key
     };
-    this.context.addFolder(folder);
+    this.context
+      .addFolder(folder)
+      .then(data => this.props.history.push('/'));
     event.target.reset();
   };
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <input
-          type='text'
-          name='folderName'
-          id='folderName'
-          required
-        />
-        <button>Save</button>
+        <fieldset>
+          <label>Add Folder</label>
+          <input
+            type='text'
+            name='folderName'
+            id='folderName'
+            required
+          />
+          <button>Save</button>
+        </fieldset>
       </form>
     );
   }

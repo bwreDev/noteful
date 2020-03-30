@@ -17,20 +17,25 @@ export default class AddNote extends Component {
       key,
       modified
     };
-    this.context.addNote(note);
+    this.context
+      .addNote(note)
+      .then(data => this.props.history.push('/'));
     event.target.reset();
   };
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <input type='text' name='noteName' required />
-        <textarea name='content' required></textarea>
-        <select name='folderId'>
-          {this.context.folders.map(folder => (
-            <option value={folder.id}>{folder.name}</option>
-          ))}
-        </select>
-        <button>Save</button>
+        <fieldset>
+          <label>Add Note</label>
+          <input type='text' name='noteName' required />
+          <textarea name='content' required></textarea>
+          <select name='folderId'>
+            {this.context.folders.map(folder => (
+              <option value={folder.id}>{folder.name}</option>
+            ))}
+          </select>
+          <button>Save</button>
+        </fieldset>
       </form>
     );
   }

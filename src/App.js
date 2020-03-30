@@ -67,11 +67,14 @@ class App extends Component {
       });
   };
 
-  deleteNote = id => {
+  deleteNote = (id, cb) => {
     return fetch(`http://localhost:9090/notes/${id}`, {
       method: 'delete'
     })
       .then(res => {
+        if (cb) {
+          cb();
+        }
         this.setState({
           notes: this.state.notes.filter(note => note.id !== id)
         });
@@ -126,6 +129,7 @@ class App extends Component {
                   path='/notes/:noteId'
                   render={routerProps => (
                     <Note
+                      history={routerProps.history}
                       note={this.state.notes.find(
                         note =>
                           note.id === routerProps.match.params.noteId
