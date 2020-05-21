@@ -1,37 +1,44 @@
 import React, { Component } from 'react';
 import NotefulContext from '../NotefulContext';
+import './AddNote.css';
 
 export default class AddNote extends Component {
   static contextType = NotefulContext;
-  onSubmit = event => {
+  onSubmit = (event) => {
     event.preventDefault();
-    const name = event.target.noteName.value;
+    const title = event.target.noteTitle.value;
     const content = event.target.content.value;
-    const folderId = event.target.folderId.value;
-    const key = Math.floor(Math.random() * 100);
-    const modified = '2020-03-20T21:30:00.000Z';
+    const folder_id = event.target.folder_id.value;
     const note = {
-      name,
+      title,
       content,
-      folderId,
-      key,
-      modified
+      folder_id,
     };
     this.context
       .addNote(note)
-      .then(data => this.props.history.push('/'));
+      .then((data) => this.props.history.push('/'));
     event.target.reset();
   };
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form className='addNote' onSubmit={this.onSubmit}>
         <fieldset>
           <label>Add Note</label>
-          <input type='text' name='noteName' required />
-          <textarea name='content' required></textarea>
-          <select name='folderId'>
-            {this.context.folders.map(folder => (
-              <option value={folder.id}>{folder.name}</option>
+          <input
+            placeholder='Note Title'
+            type='text'
+            name='noteTitle'
+            required
+          />
+          <textarea
+            placeholder='Note Content'
+            name='content'
+            required></textarea>
+          <label>Select Folder</label>
+          <select name='folder_id'>
+            <option value='blank'></option>
+            {this.context.folders.map((folder) => (
+              <option value={folder.id}>{folder.title}</option>
             ))}
           </select>
           <button>Save</button>

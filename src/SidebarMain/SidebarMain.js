@@ -7,10 +7,10 @@ export default function SidebarMain(props) {
   return (
     <nav className='sidebar-note'>
       <ul className='NoteListNav__list'>
-        {props.folders.map(folder => (
+        {props.folders.map((folder) => (
           <li className='folder-link' key={folder.id}>
             <NavLink to={'/folder/' + folder.id}>
-              {folder.name}
+              {folder.title}
             </NavLink>
           </li>
         ))}
@@ -23,5 +23,5 @@ export default function SidebarMain(props) {
 }
 
 SidebarMain.propTypes = {
-  folders: PropTypes.array
+  folders: PropTypes.array,
 };

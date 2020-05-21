@@ -9,13 +9,13 @@ export default class NoteList extends Component {
   render() {
     return (
       <ul className='NoteListMain'>
-        {this.props.notes.map(note => (
+        {this.props.notes.map((note) => (
           <li className='note-name' key={note.id}>
-            <Link to={'/notes/' + note.id}>{note.name}</Link>
+            <Link to={'/note/' + note.id}>{note.title}</Link>
             <span className='modified-date'>{note.modified}</span>
             <div className='button-container'>
               <button
-                onClick={e => this.context.deleteNote(note.id)}
+                onClick={(e) => this.context.deleteNote(note.id)}
                 className='delete-note-button'>
                 Delete
               </button>
@@ -31,5 +31,5 @@ export default class NoteList extends Component {
 }
 
 NoteList.propTypes = {
-  notes: PropTypes.array
+  notes: PropTypes.array,
 };

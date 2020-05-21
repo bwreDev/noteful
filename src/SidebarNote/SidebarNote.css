@@ -1,4 +1,5 @@
 .back-button {
+  margin: 20px auto;
   background-color: #cacaca;
   border-radius: 30px;
   border: 0;
@@ -13,16 +14,22 @@
   width: 60px;
 }
 .back-button:hover {
-  background-color: #ffb72f;
+  background-color: #29862e;
 }
 
-.NotePageNav__folder-name {
+.folder-link {
+  background-color: #030f1f;
   color: #b5b3b3;
+  display: block;
   font-family: var(--custom-font);
-  font-size: 40px;
-  height: 50vh;
-  margin: 0 0 0 auto;
-  text-orientation: upright;
-  width: 75px;
-  writing-mode: vertical-lr;
+  font-size: 20px;
+  margin: 0 0 8px auto;
+  max-width: 180px;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.folder-link:hover {
+  background-color: #ffb72f;
+  cursor: pointer;
 }

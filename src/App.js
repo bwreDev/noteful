@@ -9,77 +9,78 @@ import Note from './note/note';
 import AddFolder from './AddFolder/AddFolder';
 import AddNote from './AddNote/AddNote';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import config from './config';
 import './App.css';
 
 class App extends Component {
   state = {
     notes: [],
-    folders: []
+    folders: [],
   };
 
   componentDidMount() {
     const fetches = [
-      fetch('http://localhost:9090/folders'),
-      fetch('http://localhost:9090/notes')
+      fetch(`${config.API_ENDPOINT}/folders`),
+      fetch(`${config.API_ENDPOINT}/notes`),
     ];
     return Promise.all(fetches)
-      .then(res => {
+      .then((res) => {
         const responses = [res[0].json(), res[1].json()];
         return Promise.all(responses);
       })
-      .then(data => {
+      .then((data) => {
         this.setState({
           folders: data[0],
-          notes: data[1]
+          notes: data[1],
         });
       });
   }
 
-  addFolder = folder => {
-    return fetch(`http://localhost:9090/folders/`, {
+  addFolder = (folder) => {
+    return fetch(`${config.API_ENDPOINT}/folders`, {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
       },
-      body: JSON.stringify(folder)
+      body: JSON.stringify(folder),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         this.setState({
-          folders: this.state.folders.concat(data)
+          folders: this.state.folders.concat(data),
         });
       });
   };
 
-  addNote = note => {
-    return fetch(`http://localhost:9090/notes/`, {
+  addNote = (note) => {
+    return fetch(`${config.API_ENDPOINT}/notes`, {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
       },
-      body: JSON.stringify(note)
+      body: JSON.stringify(note),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         this.setState({
-          notes: this.state.notes.concat(data)
+          notes: this.state.notes.concat(data),
         });
       });
   };
 
   deleteNote = (id, cb) => {
-    return fetch(`http://localhost:9090/notes/${id}`, {
-      method: 'delete'
+    return fetch(`${config.API_ENDPOINT}/notes/${id}`, {
+      method: 'delete',
     })
-      .then(res => {
+      .then((res) => {
         if (cb) {
           cb();
         }
         this.setState({
-          notes: this.state.notes.filter(note => note.id !== id)
+          notes: this.state.notes.filter((note) => note.id !== id),
         });
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
         throw e;
       });
@@ -91,7 +92,7 @@ class App extends Component {
       notes: this.state.notes,
       addFolder: this.addFolder,
       addNote: this.addNote,
-      deleteNote: this.deleteNote
+      deleteNote: this.deleteNote,
     };
 
     return (
@@ -102,13 +103,14 @@ class App extends Component {
             <aside className='side-nav'>
               <Switch>
                 <Route
-                  path='/notes/:noteId'
-                  render={routerProps => (
+                  path='/note/:noteId'
+                  render={(routerProps) => (
                     <SidebarNote
                       folders={this.state.folders}
                       note={this.state.notes.find(
-                        note =>
-                          note.id === routerProps.match.params.noteId
+                        (note) =>
+                          note.id ===
+                          parseInt(routerProps.match.params.noteId)
                       )}
                     />
                   )}
@@ -125,27 +127,17 @@ class App extends Component {
               <Switch>
                 <Route path='/add-folder' component={AddFolder} />
                 <Route path='/add-note' component={AddNote} />
+                <Route path='/note/:noteId' component={Note} />
                 <Route
-                  path='/notes/:noteId'
-                  render={routerProps => (
-                    <Note
-                      history={routerProps.history}
-                      note={this.state.notes.find(
-                        note =>
-                          note.id === routerProps.match.params.noteId
-                      )}
-                    />
-                  )}
-                />
-                <Route
-                  path='/folder/:folderId'
-                  render={routerProps => (
+                  path='/folder/:folder_id'
+                  render={(routerProps) => (
                     <NoteList
-                      notes={this.state.notes.filter(
-                        note =>
-                          note.folderId ===
-                          routerProps.match.params.folderId
-                      )}
+                      notes={this.state.notes.filter((note) => {
+                        return (
+                          note.folder_id ===
+                          parseInt(routerProps.match.params.folder_id)
+                        );
+                      })}
                     />
                   )}
                 />

@@ -1,13 +1,6 @@
 .add-folder-button {
   margin: 20px auto;
-}
-.add-folder-button:hover {
-  background-color: #29862e;
-  color: white;
-}
-
-.add-folder-button {
-    background-color: #cacaca;
+  background-color: #cacaca;
   border-radius: 30px;
   border: 0;
   color: black;
@@ -19,6 +12,11 @@
   text-align: center;
   text-decoration: none;
   width: 60px;
+}
+
+.add-folder-button:hover {
+  background-color: #29862e;
+  color: white;
 }
 
 .folder-link {
@@ -34,9 +32,6 @@
 }
 
 .folder-link:hover {
-  color: #FFB72F;
+  background-color: #ffb72f;
   cursor: pointer;
-}
-.folder-link.active {
-  background-color: #102541;
 }

@@ -1,0 +1,17 @@
+.date_published {
+  color: yellow;
+  float: right;
+  margin-right: 15px;
+}
+
+.note_title,
+.note_content,
+.delete_note {
+  margin-left: 10px;
+}
+
+.delete_note:hover {
+  background-color: red;
+  color: white;
+  cursor: pointer;
+}

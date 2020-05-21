@@ -3,17 +3,15 @@ import NotefulContext from '../NotefulContext';
 
 export default class AddFolder extends Component {
   static contextType = NotefulContext;
-  onSubmit = event => {
+  onSubmit = (event) => {
     event.preventDefault();
-    const name = event.target.folderName.value;
-    const key = Math.floor(Math.random() * 100);
+    const title = event.target.folderTitle.value;
     const folder = {
-      name,
-      key
+      title,
     };
     this.context
       .addFolder(folder)
-      .then(data => this.props.history.push('/'));
+      .then((data) => this.props.history.push('/'));
     event.target.reset();
   };
   render() {
@@ -23,8 +21,8 @@ export default class AddFolder extends Component {
           <label>Add Folder</label>
           <input
             type='text'
-            name='folderName'
-            id='folderName'
+            name='folderTitle'
+            id='folderTitle'
             required
           />
           <button>Save</button>
