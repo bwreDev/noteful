@@ -20,8 +20,8 @@ class App extends Component {
 
   componentDidMount() {
     const fetches = [
-      fetch(`${config.API_ENDPOINT}/folders`),
-      fetch(`${config.API_ENDPOINT}/notes`),
+      fetch(`${config.API_ENDPOINT}folders`),
+      fetch(`${config.API_ENDPOINT}notes`),
     ];
     return Promise.all(fetches)
       .then((res) => {
@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   addFolder = (folder) => {
-    return fetch(`${config.API_ENDPOINT}/folders`, {
+    return fetch(`${config.API_ENDPOINT}folders`, {
       method: 'post',
       headers: {
         'content-type': 'application/json',
@@ -53,7 +53,7 @@ class App extends Component {
   };
 
   addNote = (note) => {
-    return fetch(`${config.API_ENDPOINT}/notes`, {
+    return fetch(`${config.API_ENDPOINT}notes`, {
       method: 'post',
       headers: {
         'content-type': 'application/json',
@@ -69,7 +69,7 @@ class App extends Component {
   };
 
   deleteNote = (id, cb) => {
-    return fetch(`${config.API_ENDPOINT}/notes/${id}`, {
+    return fetch(`${config.API_ENDPOINT}notes/${id}`, {
       method: 'delete',
     })
       .then((res) => {
